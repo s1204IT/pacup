@@ -1,0 +1,2 @@
+# pacup
+Simplify package updates
