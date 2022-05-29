@@ -1,5 +1,5 @@
 #!/bin/bash
-if [`whoami`!='root']; then
+if [ `whoami` != 'root' ]; then
   echo "管理者権限で実行してください"
   exit
 fi
