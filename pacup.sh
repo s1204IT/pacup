@@ -1,24 +1,32 @@
 #!/bin/bash
-if [ `whoami` != 'root' ]; then
-  echo "管理者権限で実行してください"
-  exit
-fi
+function usage {
+    cat <<EOM
+Usage: $(basename "$0") [OPTION]...
+    -h 		Display help
+    -y		Skip input 'y'
+EOM
 
-function apt_ () {
-  sudo apt update
-
-  while getopts ":y" optKey; do
-    case "$optKey" in
-      y)
-        sudo apt -y upgrade
-        exit
-        ;;
-    esac
-  done
-
-  sudo apt upgrade
-
-  exit
+    exit 0
 }
 
-apt_
+if [ `whoami` != 'root' ]; then
+    echo "管理者権限で実行してください"
+    exit 0
+fi
+
+while getopts ":h:y" optKey; do
+    case "$optKey" in
+    	y)
+    	    apt update && apt -y upgrade
+    	    exit 0
+             ;;    	
+    	'-h'|'--help' )
+    	    usage
+    	    ;;
+    	* )
+     	    
+    esac
+done
+
+apt update && apt upgrade
+exit 0
