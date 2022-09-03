@@ -1,11 +1,16 @@
 #!/bin/bash
-function usage {
+function usage() {
     cat <<EOM
 Usage: $(basename "$0") [OPTION]...
     -h 		Display help
     -y		Skip input 'y'
 EOM
 
+    exit 2
+}
+
+function update_y() {
+    apt update && apt -y upgrade
     exit 0
 }
 
@@ -17,16 +22,12 @@ fi
 while getopts ":h:y" optKey; do
     case "$optKey" in
     	y)
-    	    apt update && apt -y upgrade
-    	    exit 0
-             ;;    	
-    	'-h'|'--help' )
-    	    usage
-    	    ;;
-    	* )
-     	    
+    	  update_y
+          ;;    	
+    	'-h'|'--help'|* )
+    	  usage
+    	  ;;
     esac
 done
-
 apt update && apt upgrade
 exit 0
