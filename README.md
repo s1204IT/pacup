@@ -11,5 +11,5 @@ Ubuntu系のディストリで、パッケージのアップデートをする�
 ```
 git clone https://github.com/PengiNN/pacup
 cd pacup
-sudo install_pacup.sh
+sudo bash install_pacup.sh
 ```
