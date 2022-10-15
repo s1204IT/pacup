@@ -4,19 +4,21 @@ function usage() {
 Usage: $(basename "$0") [OPTION]...
     -h 		Display help
     -y		Skip input 'y'
-    -f      Run full-upgrade
+    -f		Run full-upgrade
 EOM
 
     exit 2
 }
 
 function update_y() {
+    echo 'Skip input "y"'
     apt update && apt -y upgrade
     exit 0
 }
 
 function update_full() {
-    apt update && apt full-upgrade -y
+    echo 'Run full-upgrade'
+    apt update && apt -y full-upgrade
     exit 0
 }
 
@@ -25,17 +27,11 @@ if [ `whoami` != 'root' ]; then
     exit 0
 fi
 
-while getopts ":h:y:f" optKey; do
+while getopts :hyf optKey; do
     case "$optKey" in
-    	y)
-    	  update_y
-          ;;    	
-        f)
-          upgrade_full
-          ;;
-    	'-h'|'--help'|* )
-    	  usage
-    	  ;;
+	y) update_y ;;
+	f) update_full ;;
+    '-h'|'--help'|* ) usage ;;
     esac
 done
 apt update && apt upgrade
