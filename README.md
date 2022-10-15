@@ -10,6 +10,5 @@ Ubuntu系のディストリで、パッケージのアップデートをする�
 ## インストール方法
 ```
 git clone https://github.com/PengiNN/pacup
-cd pacup
 sudo bash install_pacup.sh
 ```
