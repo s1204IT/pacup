@@ -52,13 +52,13 @@ fi
 command -v snap &>/dev/null
 # WSLはスキップ
 if [ $? == 0 ] && [ ! -f /usr/bin/wslsys ]; then
-   sed -i -e "/^  : #SYS$/a \ \ echo -e \"\\nsnap refresh を実行します\"\n\ \ sudo snap refresh" ./pacup.sh
+   sed -i -e "/^  : #SYS$/a \ \ echo -e \"\\\nsnap refresh を実行します\"\n\ \ sudo snap refresh" ./pacup.sh
 fi
 # Flatpak の確認
 command -v flatpak &>/dev/null
 if [ $? == 0 ]; then
    sed -i -e "s/#FPK/echo -e \"\\nflatpak update\$PACUP_YES を実行します\"\nflatpak update\$PACUP_YES/g" ./pacup.sh
-   sed -i -e "/^  : #SYS$/a/ \ \ echo -e \"\\nflatpak update\$PACUP_YES を実行します\"\n \ \ sudo flatpak update\$PACUP_YES" ./pacup.sh
+   sed -i -e "/^  : #SYS$/a/ \ \ echo -e \"\\\nflatpak update\$PACUP_YES を実行します\"\n \ \ sudo flatpak update\$PACUP_YES" ./pacup.sh
 fi
 
 # ファイルを強制コピー

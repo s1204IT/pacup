@@ -41,7 +41,7 @@ function PACUP_SYS() {
 function PACUP_APT() {
   echo -e "\napt update を実行します"
   sudo apt update
-  echo -e "\napt dull-upgrade$PACUP_YES を実行します"
+  echo -e "\napt full-upgrade$PACUP_YES を実行します"
   sudo apt full-upgrade$PACUP_YES
   echo -e "\napt autoremove$PACUP_YES を実行します"
   sudo apt autoremove$PACUP_YES
