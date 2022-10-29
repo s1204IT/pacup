@@ -39,12 +39,12 @@ function PACUP_SYS() {
 }
 
 function PACUP_APT() {
-  echo -e "\napt update を実行します"
-  sudo apt update
-  echo -e "\napt full-upgrade$PACUP_YES を実行します"
-  sudo apt full-upgrade$PACUP_YES
-  echo -e "\napt autoremove$PACUP_YES を実行します"
-  sudo apt autoremove$PACUP_YES
+  echo -e "\napt-get update を実行します"
+  sudo apt-get update
+  echo -e "\napt-get full-upgrade$PACUP_YES を実行します"
+  sudo apt-get full-upgrade$PACUP_YES
+  echo -e "\napt-get autoremove$PACUP_YES を実行します"
+  sudo apt-get autoremove$PACUP_YES
 }
 
 # APTでの更新のみ実行

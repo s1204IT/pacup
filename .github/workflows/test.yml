@@ -32,7 +32,7 @@ jobs:
         run: pacup -y
       - if: ${{ github.event.inputs.fpk == 'true' }}
         name: Uninstall Flatpak
-        run: sudo apt remove -y --purge flatpak
+        run: sudo apt-get remove -y --purge flatpak
       - if: ${{ github.event.inputs.fpk == 'true' }}
         name: Reset up pacup (Remove Flatpak)
         run: ./install_pacup.sh
@@ -43,7 +43,7 @@ jobs:
         name: Running test (Remove Flatpak)
         run: pacup -y
       - name: Uninstall Snapd
-        run: sudo apt remove -y --purge snapd
+        run: sudo apt-get remove -y --purge snapd
       - name: Reset up pacup (Remove Snapd)
         run: ./install_pacup.sh
       - name: Show copied pacup script (Remove Snapd)
