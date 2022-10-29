@@ -1,0 +1,52 @@
+name: Verify
+
+on:
+  push:
+    branches: main
+    paths:
+      - '.github/workflows/*.yml'
+      - '*.sh'
+  workflow_dispatch:
+    inputs:
+      fpk:
+        description: "Set up Flatpak"
+        type: boolean
+        required: true
+        default: true
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+      - if: ${{ github.event.inputs.fpk == 'true' }}
+        name: Set up Flatpak
+        run: sudo apt install -y flatpak
+      - name: Set up pacup
+        run: ./install_pacup.sh
+      - name: Show copied pacup script
+        run: cat /usr/local/bin/pacup
+      - name: Running test
+        run: pacup -y
+      - if: ${{ github.event.inputs.fpk == 'true' }}
+        name: Uninstall Flatpak
+        run: sudo apt-get remove -y --purge flatpak
+      - if: ${{ github.event.inputs.fpk == 'true' }}
+        name: Reset up pacup (Remove Flatpak)
+        run: ./install_pacup.sh
+      - if: ${{ github.event.inputs.fpk == 'true' }}
+        name: Show copied pacup script (Remove Flatpak)
+        run: cat /usr/local/bin/pacup
+      - if: ${{ github.event.inputs.fpk == 'true' }}
+        name: Running test (Remove Flatpak)
+        run: pacup -y
+      - name: Uninstall Snapd
+        run: sudo apt-get remove -y --purge snapd
+      - name: Reset up pacup (Remove Snapd)
+        run: ./install_pacup.sh
+      - name: Show copied pacup script (Remove Snapd)
+        run: cat /usr/local/bin/pacup
+      - name: Running test (Remove Snapd)
+        run: pacup -y
