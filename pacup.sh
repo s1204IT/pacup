@@ -49,31 +49,33 @@ function PACUP_APT() {
 
 # APTでの更新のみ実行
 if [ "$PACUP_MOD" == "apt" ]; then
-   PACUP_APT
+  sudo echo -n
   # Root要求が失敗した際にリトライ
   if [ $? != 0 ]; then
     echo -e "\nAPTコマンドの実行はRoot(管理者)権限を要求します｡\nもう一度お試しください｡\n"
-    PACUP_APT
+    sudo echo -n
     # リトライも失敗した際にエラーで終了
     if [ $? != 0 ]; then
       echo -e "\n権限の昇格に失敗したため､ 実行を終了しました｡"
       exit 1
     fi
   fi
+  PACUP_APT
   exit 0
 fi
 
-# APTでの更新
-PACUP_APT
+sudo echo -n
 if [ $? != 0 ]; then
   echo -e "\nRoot(管理者)権限を要求しています｡\nもう一度お試しください｡\n"
-  PACUP_SYS
+  sudo echo -n
   if [ $? != 0 ]; then
     echo -e "\n権限の昇格に失敗したため､ 実行を終了しました｡"
     exit 1
   fi
 fi
 
+# APTでの更新
+PACUP_APT
 # Flatpakコマンドが存在する場合に install_pacup.sh より書込
 #FPK
 # RootユーザーでのSnapとFlatpakの更新
