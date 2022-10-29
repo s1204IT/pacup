@@ -1,0 +1,26 @@
+name: Verify
+
+on:
+  push:
+    branches: main
+    paths:
+      - '*.sh'
+  workflow_dispatch:
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+      - name: Set up Flatpak and Snapd
+        run: sudo apt install -y flatpak snapd
+      - name: Set up pacup
+        run: ./install_pacup.sh
+      - name: Show copied pacup script
+        run: cat /usr/local/bin/pacup
+      - name: Running test
+        run: |
+          pacup -y
+          if [ $? != 0 ];then exit 1; fi
