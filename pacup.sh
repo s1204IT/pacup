@@ -4,7 +4,7 @@
 # ヘルプ
 function usage() {
   cat <<EOM
-使用方法: $(basename "$0") [OPTION]...
+使用方法: $(basename $0) [オプション]...
     -a          APTのみ実行
     -y		'y'の入力をスキップします
     -h          ヘルプを表示します
@@ -39,8 +39,11 @@ function PACUP_SYS() {
 }
 
 function PACUP_APT() {
+  echo -e "\napt update を実行します"
   sudo apt update
+  echo -e "\napt dull-upgrade$PACUP_YES を実行します"
   sudo apt full-upgrade$PACUP_YES
+  echo -e "\napt autoremove$PACUP_YES を実行します"
   sudo apt autoremove$PACUP_YES
 }
 
@@ -75,4 +78,5 @@ fi
 #FPK
 # RootユーザーでのSnapとFlatpakの更新
 PACUP_SYS
+echo -e "\n完了しました！"
 exit 0

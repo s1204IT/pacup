@@ -4,8 +4,20 @@ on:
   push:
     branches: main
     paths:
+      - '.github/workflows/*.yml'
       - '*.sh'
   workflow_dispatch:
+    inputs:
+      apps:
+        description: "Select install platform"
+        type: choice
+        required: true
+        default: "snapd flatpak"
+        options:
+          - snapd flatpak
+          - snapd
+          - flatpak
+          - ''
 
 jobs:
   verify:
@@ -14,13 +26,12 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v3
-      - name: Set up Flatpak and Snapd
-        run: sudo apt install -y flatpak snapd
+      - if: ${{ github.event.inputs.apps != '' }}
+        name: Set up install platform
+        run: sudo apt install -y "${{ github.event.inputs.apps }}"
       - name: Set up pacup
         run: ./install_pacup.sh
       - name: Show copied pacup script
         run: cat /usr/local/bin/pacup
       - name: Running test
-        run: |
-          pacup -y
-          if [ $? != 0 ];then exit 1; fi
+        run: pacup -y
