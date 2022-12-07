@@ -1,5 +1,4 @@
-# pacup
-***Simplify package updates***
+# Packages Updater
 
 Debian系 もしくは Debian派生系のディストリビューションで､ パッケージのアップデートをする際に  
 `sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo snap refresh && flatpak update -y`  
@@ -11,7 +10,6 @@ Debian系 もしくは Debian派生系のディストリビューションで､
 
 ## インストール方法
 ```
-sudo apt install -y git
 git clone https://github.com/PengiNN/pacup
 ./pacup/install_pacup.sh
 ```
